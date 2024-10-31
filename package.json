@@ -1,6 +1,6 @@
 {
   "name": "react-native-basic-biometrics",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Provides basic biometric functionality for both iOS and Android",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
