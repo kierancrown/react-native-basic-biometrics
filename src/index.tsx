@@ -24,6 +24,28 @@ const BasicBiometrics = BasicBiometricsModule
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return BasicBiometrics.multiply(a, b);
+// Define canAuthenticate method
+export function canAuthenticate(): Promise<boolean> {
+  return BasicBiometrics.canAuthenticate();
 }
+
+// Define requestBioAuth method
+export function requestBioAuth(
+  title: string,
+  subtitle: string
+): Promise<boolean> {
+  return BasicBiometrics.requestBioAuth(title, subtitle);
+}
+
+// Define getBiometryType method
+export function getBiometryType(): Promise<BiometryType> {
+  return BasicBiometrics.getBiometryType();
+}
+
+export type BiometryType =
+  | 'TouchID'
+  | 'FaceID'
+  | 'Fingerprint'
+  | 'Face'
+  | 'Unknown'
+  | 'None';

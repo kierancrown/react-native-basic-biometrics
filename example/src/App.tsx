@@ -1,17 +1,48 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-basic-biometrics';
+import { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, Button, Alert } from 'react-native';
+import {
+  canAuthenticate,
+  getBiometryType,
+  requestBioAuth,
+  type BiometryType,
+} from 'react-native-basic-biometrics';
 
 export default function App() {
-  const [result, setResult] = useState<number | undefined>();
+  const [authenticated, setAuthenticated] = useState(false);
+  const [canAuthenticateResult, setCanAuthenticateResult] = useState(false);
+  const [biometricType, setBiometricType] = useState<BiometryType>('Unknown');
 
   useEffect(() => {
-    multiply(3, 7).then(setResult);
+    canAuthenticate().then((result) => {
+      setCanAuthenticateResult(result);
+    });
+
+    getBiometryType().then((type) => {
+      setBiometricType(type);
+    });
   }, []);
+
+  const handleRequestBioAuth = async () => {
+    try {
+      const res = await requestBioAuth('Title', 'Subtitle');
+      setAuthenticated(res);
+    } catch (e) {
+      const error = e as Error;
+      Alert.alert('Error', error.message);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      {canAuthenticateResult ? (
+        <>
+          <Text>Biometric Type: {biometricType}</Text>
+          <Button title="Authenticate" onPress={handleRequestBioAuth} />
+          {authenticated && <Text>Authenticated</Text>}
+        </>
+      ) : (
+        <Text>Biometric authentication is not available</Text>
+      )}
     </View>
   );
 }
