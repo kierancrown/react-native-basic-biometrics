@@ -5,7 +5,9 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.Promise
 
 abstract class BasicBiometricsSpec internal constructor(context: ReactApplicationContext) :
-  ReactContextBaseJavaModule(context) {
+    ReactContextBaseJavaModule(context) {
 
-  abstract fun multiply(a: Double, b: Double, promise: Promise)
+    abstract fun canAuthenticate(promise: Promise)
+    abstract fun requestBioAuth(title: String, subtitle: String, promise: Promise)
+    abstract fun getBiometryType(promise: Promise)
 }

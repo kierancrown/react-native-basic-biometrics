@@ -8,17 +8,6 @@ Provides basic biometric functionality for both iOS and Android
 npm install react-native-basic-biometrics
 ```
 
-## Usage
-
-
-```js
-import { multiply } from 'react-native-basic-biometrics';
-
-// ...
-
-const result = await multiply(3, 7);
-```
-
 
 ## Contributing
 
